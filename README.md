@@ -44,12 +44,19 @@ Survive a zombie apocalypse on a 15×15 fog-of-war map. Pick a hero, manage acti
 
 ## How to Run
 
-**Requirements:** Java 17+, Maven 3.6+
+**Requirements:** A JDK with JavaFX bundled (e.g. [Azul Zulu FX](https://www.azul.com/downloads/?package=jdk-fx)) — no separate JavaFX SDK needed.
 
+**VS Code**
+1. Open the project folder in VS Code (with the Java Extension Pack installed)
+2. Open `src/View/GUI.java`
+3. Click **Run** above the `main` method — the `.vscode/launch.json` already includes the required `--add-modules` flags
+
+**Command line**
 ```bash
 git clone https://github.com/yourusername/zombie-survival-grid.git
 cd zombie-survival-grid
-mvn javafx:run
+javac -d bin $(find src -name "*.java" ! -path "*/tests/*")
+java --add-modules javafx.controls,javafx.media,javafx.graphics,javafx.base -cp bin View.GUI
 ```
 
 ---
@@ -57,7 +64,7 @@ mvn javafx:run
 ## Project Structure
 
 ```
-src/main/java/
+src/
 ├── engine/
 │   ├── Game.java          # Static game state, turn logic, CSV loading, win/lose
 │   └── GameConstants.java # All magic numbers in one place
@@ -66,15 +73,12 @@ src/main/java/
 │   ├── world/             # Cell → CharacterCell / CollectibleCell / TrapCell
 │   └── collectibles/      # Collectible interface → Vaccine / Supply
 ├── exceptions/            # GameActionException hierarchy (5 types)
-└── View/
-    └── GUI.java           # JavaFX Application — hero select + 15×15 grid scene
-
-src/main/resources/
-├── icons/Characters/      # Hero & zombie sprites
-└── icons/                 # Supply, Vaccine, fog-of-war icons
-
-src/test/java/tests/
-└── M2PublicTests.java     # 120+ JUnit 4 tests (course-provided)
+├── View/
+│   └── GUI.java           # JavaFX Application — hero select + 15×15 grid scene
+├── Resources/
+│   └── icons/             # Hero & zombie sprites, Supply, Vaccine, fog-of-war icons
+└── tests/
+    └── M2PublicTests.java # 120+ JUnit 4 tests (course-provided)
 
 Heroes.csv                 # Hero roster: name, role, HP, actions, attack
 ```

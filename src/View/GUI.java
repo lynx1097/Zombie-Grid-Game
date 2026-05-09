@@ -52,7 +52,7 @@ public class GUI extends Application {
     /**
      * Loads an image from the classpath, returning a cached copy on subsequent calls.
      *
-     * @param path classpath-relative path, e.g. {@code "/icons/Characters/Marcus Rowe.png"}
+     * @param path classpath-relative path, e.g. {@code "/Resources/icons/Characters/Marcus Rowe.png"}
      * @return the loaded {@link Image}
      */
     private static Image loadImage(String path) {
@@ -108,7 +108,7 @@ public class GUI extends Application {
         for (int i = 0; i < GameConstants.HERO_ROSTER_SIZE; i++) {
             String name = Game.availableHeroes.get(i).getName();
             heroIcons[i][0] = name;
-            ImageView iv = new ImageView(loadImage("/icons/Characters/" + name + ".png"));
+            ImageView iv = new ImageView(loadImage("/Resources/icons/Characters/" + name + ".png"));
             iv.setFitHeight(GameConstants.CHAR_IMG_PX);
             iv.setFitWidth(GameConstants.CHAR_IMG_PX);
             heroIcons[i][1] = iv;
@@ -252,8 +252,8 @@ public class GUI extends Application {
                     if (Game.map[i][j] instanceof CharacterCell cc
                             && cc.getCharacter() != null) {
                         String imgPath = cc.getCharacter() instanceof Hero
-                                ? "/icons/Characters/" + cc.getCharacter().getName() + ".png"
-                                : "/icons/Characters/Zombie.png";
+                                ? "/Resources/icons/Characters/" + cc.getCharacter().getName() + ".png"
+                                : "/Resources/icons/Characters/Zombie.png";
                         ImageView iv = new ImageView(loadImage(imgPath));
                         iv.setFitHeight(GameConstants.CHAR_IMG_PX);
                         iv.setFitWidth(GameConstants.CHAR_IMG_PX);
@@ -261,14 +261,14 @@ public class GUI extends Application {
                     }
                     if (Game.map[i][j] instanceof CollectibleCell cc) {
                         String imgPath = cc.getCollectible() instanceof Supply
-                                ? "/icons/Supply.png" : "/icons/Vaccine.png";
+                                ? "/Resources/icons/Supply.png" : "/Resources/icons/Vaccine.png";
                         ImageView iv = new ImageView(loadImage(imgPath));
                         iv.setFitHeight(GameConstants.CHAR_IMG_PX);
                         iv.setFitWidth(GameConstants.CHAR_IMG_PX);
                         map[i][j].setGraphic(iv);
                     }
                 } else {
-                    ImageView iv = new ImageView(loadImage("/icons/invisible.png"));
+                    ImageView iv = new ImageView(loadImage("/Resources/icons/invisible.png"));
                     iv.setFitWidth(GameConstants.CHAR_IMG_PX);
                     iv.setFitHeight(GameConstants.CHAR_IMG_PX);
                     map[i][j].setGraphic(iv);

@@ -77,3 +77,6 @@ target/
 
 # Eclipse user libraries config
 *.userlibraries
+
+# VS Code
+.vscode/
