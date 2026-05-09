@@ -6,6 +6,18 @@ Survive a zombie apocalypse on a 15×15 fog-of-war map. Pick a hero, manage acti
 
 ---
 
+> [!NOTE]
+> **Authorship disclosure**
+>
+> The game logic, architecture, and all Java source code were originally written by me independently in 2024 as a university OOP course project — no AI assistance was used during original development.
+>
+> In May 2026 I used [Claude](https://claude.ai) to polish it for my GitHub portfolio. Claude's contributions were limited to:
+> - Writing this README
+> - Renaming characters and regenerating sprites to remove copyrighted content
+> - Adding JavaDoc to the source files
+>
+> No gameplay logic, algorithms, or architectural decisions were changed by AI.
+
 ## Gameplay
 
 - **15×15 grid** with fog-of-war — only the 3×3 area around each hero is visible
