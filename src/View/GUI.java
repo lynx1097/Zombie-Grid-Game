@@ -31,7 +31,7 @@ import model.collectibles.Supply;
 import model.world.CharacterCell;
 import model.world.CollectibleCell;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
