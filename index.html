@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLOUPixelverse</title>
     
+    <!-- Safely silences the favicon error without breaking the page -->
+    <link rel="icon" href="data:,">
+    
     <style>
         body {
             background-color: #1a1a1a;
@@ -68,10 +71,11 @@
         <p id="status-text">Connecting to server...</p>
     </div>
 
-    <!-- The CheerpJ 4.3 Loader -->
+    <!-- The CheerpJ Engine -->
     <script src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
 
     <script>
+        // Gatekeeper to ensure CheerpJ is fully downloaded before we ask it to do anything
         function waitForCheerpJ() {
             return new Promise((resolve, reject) => {
                 let attempts = 0;
@@ -89,37 +93,60 @@
             });
         }
 
+        // Only run this logic after the HTML body is fully drawn
         window.addEventListener('load', async function() {
-            // ... (progressBar and simulated progress logic) ...
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('status-text');
+            const loadingScreen = document.getElementById('loading-screen');
+
+            // Fake animation to give the user visual feedback during heavy downloads
+            let simulatedProgress = 0;
+            const progressInterval = setInterval(() => {
+                if (simulatedProgress < 85) {
+                    simulatedProgress += Math.random() * 5; 
+                    if (simulatedProgress > 85) simulatedProgress = 85;
+                    progressBar.style.width = simulatedProgress + '%';
+                }
+            }, 300);
 
             try {
+                statusText.innerText = "Downloading WebAssembly Engine...";
                 await waitForCheerpJ(); 
 
                 statusText.innerText = "Initializing Java 17 Environment...";
-                
-                // --- FORCE JAVA 17 HERE ---
+                // Boot CheerpJ explicitly in Java 17 mode
                 await cheerpjInit({ version: 17 });
                 
                 progressBar.style.width = '90%';
-                
                 statusText.innerText = "Preparing Game Canvas...";
-                // Resolution of your JavaFX Scene
-                cheerpjCreateDisplay(800, 600);
                 
+                // Create the display (Modify 800, 600 if your game window is a different size)
+                cheerpjCreateDisplay(800, 600);
+                progressBar.style.width = '95%';
+                
+                clearInterval(progressInterval); 
                 progressBar.style.width = '100%';
                 statusText.innerText = "Game Ready!";
 
                 setTimeout(async () => {
-                    document.getElementById('loading-screen').style.display = 'none';
+                    // Fade out the loading UI
+                    loadingScreen.style.opacity = '0'; 
+                    setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
 
-                    // --- CLEAN PATH (Single slash only) ---
+                    // Launch the JAR using the strictly cleaned GitHub Pages path
                     await cheerpjRunJar("/app/Zombie-Grid-Game/TLOUP.jar"); 
                 }, 500);
 
             } catch (error) {
-                // ... (error handling) ...
+                // If anything goes wrong, turn the bar red and log the exact error
+                clearInterval(progressInterval);
+                console.error("Game crashed or failed to load:", error);
+                
+                progressBar.style.background = "#ff5252"; 
+                statusText.style.color = "#ff5252";
+                statusText.innerText = error.message || "Error loading game. Check Console (F12).";
             }
-        });    
+        });
     </script>
 
 </body>
