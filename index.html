@@ -1,8 +1,27 @@
-<script src="https://cjrtnc.leaningtech.com/3.0/loader.js"></script>
-<script>
-  (async function () {
-    await cheerpjInit();
-    cheerpjCreateDisplay(800, 600); // Set your game resolution
-    await cheerpjRunJar("/app/TLOUP.jar");
-  })();
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TLOUPixelverse</title>
+    <!-- 1. Add an ID and an onload handler to the script tag -->
+    <script 
+        id="cheerpj-loader"
+        src="https://cjrtnc.leaningtech.com/3.0/loader.js" 
+        onload="runGame()">
+    </script>
+</head>
+<body>
+    <script>
+        // 2. Wrap your logic in the function called by onload
+        async function runGame() {
+            try {
+                await cheerpjInit();
+                cheerpjCreateDisplay(800, 600);
+                // Make sure the path matches your JAR location in the repo
+                await cheerpjRunJar("/app/TLOUP.jar"); 
+            } catch (e) {
+                console.error("CheerpJ failed to initialize:", e);
+            }
+        }
+    </script>
+</body>
+</html>
