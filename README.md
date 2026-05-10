@@ -6,7 +6,7 @@ Survive a zombie apocalypse on a 15×15 fog-of-war map. Pick a hero, manage acti
 
 ---
 
-> [!Disclaimer]
+> [!NOTE]
 >
 > The game logic, architecture, and all Java source code were originally written by me independently in 2024 as a university OOP course project — no AI assistance was used during original development.
 >
