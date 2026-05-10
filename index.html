@@ -68,10 +68,9 @@
         <p id="status-text">Connecting to server...</p>
     </div>
 
-    <!-- 1. The Corrected CheerpJ 4.3 Loader -->
+    <!-- The CheerpJ 4.3 Loader -->
     <script src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
 
-    <!-- 2. The Game Startup Logic -->
     <script>
         function waitForCheerpJ() {
             return new Promise((resolve, reject) => {
@@ -84,63 +83,43 @@
                     attempts++;
                     if (attempts > 150) { 
                         clearInterval(checkInterval);
-                        reject(new Error("Network timeout: Could not connect to CheerpJ CDN."));
+                        reject(new Error("Network timeout: Could not connect to CDN."));
                     }
                 }, 100);
             });
         }
 
         window.addEventListener('load', async function() {
-            const progressBar = document.getElementById('progress-bar');
-            const statusText = document.getElementById('status-text');
-            const loadingScreen = document.getElementById('loading-screen');
-
-            let simulatedProgress = 0;
-            const progressInterval = setInterval(() => {
-                if (simulatedProgress < 85) {
-                    simulatedProgress += Math.random() * 5; 
-                    if (simulatedProgress > 85) simulatedProgress = 85;
-                    progressBar.style.width = simulatedProgress + '%';
-                }
-            }, 300);
+            // ... (progressBar and simulated progress logic) ...
 
             try {
-                statusText.innerText = "Downloading WebAssembly Engine...";
                 await waitForCheerpJ(); 
 
-                statusText.innerText = "Initializing Java Environment...";
+                statusText.innerText = "Initializing Java 17 Environment...";
+                
+                // --- FORCE JAVA 17 HERE ---
                 await cheerpjInit({ version: 17 });
+                
                 progressBar.style.width = '90%';
                 
                 statusText.innerText = "Preparing Game Canvas...";
+                // Resolution of your JavaFX Scene
                 cheerpjCreateDisplay(800, 600);
-                progressBar.style.width = '95%';
                 
-                clearInterval(progressInterval); 
                 progressBar.style.width = '100%';
                 statusText.innerText = "Game Ready!";
 
                 setTimeout(async () => {
-                    loadingScreen.style.opacity = '0'; 
-                    setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
+                    document.getElementById('loading-screen').style.display = 'none';
 
+                    // --- CLEAN PATH (Single slash only) ---
                     await cheerpjRunJar("/app/Zombie-Grid-Game/TLOUP.jar"); 
                 }, 500);
 
             } catch (error) {
-                clearInterval(progressInterval);
-                console.error("Game crashed or failed to load:", error);
-                
-                progressBar.style.background = "#ff5252"; 
-                statusText.style.color = "#ff5252";
-                
-                if (error.message.includes("Network timeout")) {
-                    statusText.innerText = "Connection blocked. Please disable Ad-Blockers and refresh.";
-                } else {
-                    statusText.innerText = "Error loading game. Check Console (F12).";
-                }
+                // ... (error handling) ...
             }
-        });
+        });    
     </script>
 
 </body>
