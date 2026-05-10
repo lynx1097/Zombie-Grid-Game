@@ -6,8 +6,7 @@ Survive a zombie apocalypse on a 15×15 fog-of-war map. Pick a hero, manage acti
 
 ---
 
-> [!NOTE]
-> **Authorship disclosure**
+> [!Disclaimer]
 >
 > The game logic, architecture, and all Java source code were originally written by me independently in 2024 as a university OOP course project — no AI assistance was used during original development.
 >
@@ -114,9 +113,10 @@ Model (characters / world / collectibles / exceptions)
 **Design patterns used:**
 - Inheritance hierarchy — `Character → Hero → Fighter/Medic/Explorer`
 - Interface polymorphism — `Collectible` implemented by `Vaccine` and `Supply`
-- Abstract cell hierarchy — `Cell → CharacterCell / CollectibleCell / TrapCell`
-- Template method — `attack()` in `Character`, overridden in `Hero` and `Zombie`
+- Abstraction — `Cell → CharacterCell / CollectibleCell / TrapCell`
+- Polymorphism — `attack()` in `Character`, overridden in `Hero` and `Zombie`
 - Callback decoupling — `Game.onMapUpdate` breaks the Model→View import cycle
+- Encapsulation with setters and getters for all non-static variable updates to set Read / Write permissions cleanly . 
 
 **Honest trade-offs** (course-project constraints):
 - All game state is `public static` in `Game.java` — simple but non-reusable
@@ -133,6 +133,28 @@ Model (characters / world / collectibles / exceptions)
 - Maven 3 (build)
 
 ---
+
+## Screenshots
+
+**Hero Selection**
+![Hero Selection](screenshots/Hero_selection.png)
+
+**Game Start**
+![Game Start](screenshots/Game_start.png)
+
+**Acquiring Cure**
+![Acquiring_cure](screenshots/Acquiring_cure.png)
+
+**Zombie Encounter**
+![Zombie_encounter](screenshots/Zombie_encounter.png)
+
+**Acquiring Supply**
+![Acquiring_supply](screenshots/Acquiring_supply.png)
+
+**Explorer Ability**
+![Explorer_Ability](screenshots/Explorer_Ability.png)
+
+
 
 ## License
 
