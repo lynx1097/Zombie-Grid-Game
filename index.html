@@ -109,7 +109,7 @@
                 await waitForCheerpJ(); 
 
                 statusText.innerText = "Initializing Java Environment...";
-                await cheerpjInit();
+                await cheerpjInit({ version: 17 });
                 progressBar.style.width = '90%';
                 
                 statusText.innerText = "Preparing Game Canvas...";
