@@ -137,7 +137,7 @@ Model (characters / world / collectibles / exceptions)
 ## Screenshots
 
 **Hero Selection**
-![Hero Selection](screenshots/Hero_selection.png)
+![Hero Selection](screenshots/Hero_Selection.png)
 
 **Game Start**
 ![Game Start](screenshots/Game_start.png)
