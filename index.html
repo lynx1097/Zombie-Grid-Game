@@ -1,27 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLOUPixelverse</title>
-    <!-- 1. Add an ID and an onload handler to the script tag -->
-    <script 
-        id="cheerpj-loader"
-        src="https://cjrtnc.leaningtech.com/3.0/loader.js" 
-        onload="runGame()">
-    </script>
+    
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; 
+        }
+
+        #loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            z-index: 10;
+            transition: opacity 0.5s ease-out;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .progress-container {
+            width: 400px;
+            height: 24px;
+            background-color: #333;
+            border: 2px solid #555;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #81c784);
+            transition: width 0.3s ease-out;
+        }
+
+        #status-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
 </head>
 <body>
+
+    <div id="loading-screen">
+        <h2>Loading TLOUPixelverse</h2>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <p id="status-text">Connecting to server...</p>
+    </div>
+
+    <!-- 1. The Corrected CheerpJ 4.3 Loader -->
+    <script src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
+
+    <!-- 2. The Game Startup Logic -->
     <script>
-        // 2. Wrap your logic in the function called by onload
-        async function runGame() {
-            try {
-                await cheerpjInit();
-                cheerpjCreateDisplay(800, 600);
-                // Make sure the path matches your JAR location in the repo
-                await cheerpjRunJar("/app/TLOUP.jar"); 
-            } catch (e) {
-                console.error("CheerpJ failed to initialize:", e);
-            }
+        function waitForCheerpJ() {
+            return new Promise((resolve, reject) => {
+                let attempts = 0;
+                const checkInterval = setInterval(() => {
+                    if (typeof cheerpjInit !== 'undefined') {
+                        clearInterval(checkInterval);
+                        resolve(); 
+                    }
+                    attempts++;
+                    if (attempts > 150) { 
+                        clearInterval(checkInterval);
+                        reject(new Error("Network timeout: Could not connect to CheerpJ CDN."));
+                    }
+                }, 100);
+            });
         }
+
+        window.addEventListener('load', async function() {
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('status-text');
+            const loadingScreen = document.getElementById('loading-screen');
+
+            let simulatedProgress = 0;
+            const progressInterval = setInterval(() => {
+                if (simulatedProgress < 85) {
+                    simulatedProgress += Math.random() * 5; 
+                    if (simulatedProgress > 85) simulatedProgress = 85;
+                    progressBar.style.width = simulatedProgress + '%';
+                }
+            }, 300);
+
+            try {
+                statusText.innerText = "Downloading WebAssembly Engine...";
+                await waitForCheerpJ(); 
+
+                statusText.innerText = "Initializing Java Environment...";
+                await cheerpjInit();
+                progressBar.style.width = '90%';
+                
+                statusText.innerText = "Preparing Game Canvas...";
+                cheerpjCreateDisplay(800, 600);
+                progressBar.style.width = '95%';
+                
+                clearInterval(progressInterval); 
+                progressBar.style.width = '100%';
+                statusText.innerText = "Game Ready!";
+
+                setTimeout(async () => {
+                    loadingScreen.style.opacity = '0'; 
+                    setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
+
+                    await cheerpjRunJar("/app/TLOUP.jar"); 
+                }, 500);
+
+            } catch (error) {
+                clearInterval(progressInterval);
+                console.error("Game crashed or failed to load:", error);
+                
+                progressBar.style.background = "#ff5252"; 
+                statusText.style.color = "#ff5252";
+                
+                if (error.message.includes("Network timeout")) {
+                    statusText.innerText = "Connection blocked. Please disable Ad-Blockers and refresh.";
+                } else {
+                    statusText.innerText = "Error loading game. Check Console (F12).";
+                }
+            }
+        });
     </script>
+
 </body>
 </html>
