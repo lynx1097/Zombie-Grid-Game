@@ -136,24 +136,35 @@ Model (characters / world / collectibles / exceptions)
 
 ## Screenshots
 
-**Hero Selection**
-![Hero Selection](screenshots/Hero_Selection.png)
+<p align="center">
+  <b>Hero Selection</b><br>
+  <img src="screenshots/Hero_Selection.png" width="75%">
+</p>
 
-**Game Start**
-![Game Start](screenshots/Game_start.png)
+<p align="center">
+  <b>Game Start</b><br>
+  <img src="screenshots/Game_start.png" width="75%">
+</p>
 
-**Acquiring Cure**
-![Acquiring_cure](screenshots/Acquiring_cure.png)
+<p align="center">
+  <b>Acquiring Cure</b><br>
+  <img src="screenshots/Acquiring_cure.png" width="75%">
+</p>
 
-**Zombie Encounter**
-![Zombie_encounter](screenshots/Zombie_encounter.png)
+<p align="center">
+  <b>Zombie Encounter</b><br>
+  <img src="screenshots/Zombie_encounter.png" width="75%">
+</p>
 
-**Acquiring Supply**
-![Acquiring_supply](screenshots/Acquiring_supply.png)
+<p align="center">
+  <b>Acquiring Supply</b><br>
+  <img src="screenshots/Acquiring_supply.png" width="75%">
+</p>
 
-**Explorer Ability**
-![Explorer_Ability](screenshots/Explorer_Ability.png)
-
+<p align="center">
+  <b>Explorer Ability</b><br>
+  <img src="screenshots/Explorer_Ability.png" width="75%">
+</p>
 
 
 ## License
