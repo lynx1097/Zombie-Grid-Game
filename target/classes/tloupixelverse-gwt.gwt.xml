@@ -1,6 +1,0 @@
-<module>
-  <inherits name="org.jresearch.threetenbp.gwt.time.module"/>
-  <source path="client"/>
-  <source path="shared"/>
-  <super-source path="super"/>
-</module>
