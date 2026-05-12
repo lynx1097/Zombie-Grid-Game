@@ -1,8 +1,24 @@
-# Zombie Survival Grid
+# TLOUPixelverse
+
+>
+> This game was ported from java to web emulation in browser using webfx framework as the original project is primarily built on JavaFX , which makes this the only web option .
+>
+>It took me a huge effort and time to do so , maybe more than the original project , and believe me , AI can't help you with this one , webfx is still under development and lacking support .
+>
+> It's hosted on github pages .
+>
+> However  , I did it , enjoy this little game :) 
+
+<p align="center">
+    <a href="https://lynx1097.github.io/Zombie-Grid-Game/">
+      <img src="screenshots/play.jpeg" width="50%">
+    </a>
+</p>
 
 A turn-based 2D grid survival game built in **Java 17 + JavaFX 17**.
 
 Survive a zombie apocalypse on a 15×15 fog-of-war map. Pick a hero, manage action points, collect vaccines to recruit allies, and outlast the undead.
+
 
 ---
 
